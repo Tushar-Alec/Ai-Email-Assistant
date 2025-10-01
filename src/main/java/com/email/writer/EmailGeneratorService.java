@@ -33,8 +33,8 @@ public class EmailGeneratorService {
 
         //Crafting a request
     Map<String , Object> requestBody = Map.of(
-            "Contents", new Object[] {
-                    Map.of("Parts", new Object[]{
+            "contents", new Object[] {
+                    Map.of("parts", new Object[]{
                             Map.of("text", prompt)
                     })
             }
@@ -44,6 +44,7 @@ public class EmailGeneratorService {
 String response = webClient.post()
         .uri(geminiApiUrl + geminiApiKey)
         .header("Content-Type","application/json")
+        .bodyValue(requestBody)
         .retrieve()
         .bodyToMono(String.class)
         .block();
